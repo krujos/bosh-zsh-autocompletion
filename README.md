@@ -13,3 +13,32 @@ Drop the ```bosh``` directory into your ```$ZSH/custom/plugins/``` (usually ```~
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
     plugins=(git docker jsontools tmux vagrant bosh)
+    
+    
+#Example
+
+Type ```bosh <tab>``` and watch the magic happen
+
+    Last login: Thu Dec 11 16:42:19 on ttys002
+    ➜  ~  bosh ......                                                                  $
+    add                    generate               ssh
+    alias                  get                    start
+    aliases                help                   status
+    backup                 import                 stemcells
+    blobs                  init                   stop
+    cancel                 locks                  sync
+    cleanup                login                  take
+    cloudcheck             logout                 target
+    complete               logs                   targets
+    create                 properties             task
+    delete                 public                 tasks
+    deploy                 recreate               unset
+    deployment             releases               upload
+    deployments            rename                 validate
+    destination_directory  reset                  verify
+    diff                   restart                version
+    download               run                    vm
+    edit                   scp                    vms
+    errands                set
+    export                 snapshots
+    
