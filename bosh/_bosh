@@ -1,4 +1,9 @@
 #compdef bosh
-cmd=($(bosh help | egrep -v "Usage|BOSH" | egrep "^\w+" | awk '{ print $1 }' | tr ']' ' '))
-#print $cmd
-_arguments "1: :($cmd)"
+first_position=($(bosh help | egrep -v "Usage|BOSH" | egrep "^\w+" | awk '{ print $1 }' | tr ']' ' '))
+
+
+complete() { 
+    _arguments "1: :($first_position)"
+}
+
+complete "$@"
