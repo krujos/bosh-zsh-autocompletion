@@ -1,7 +1,8 @@
 bosh-zsh-autocompletion
 =======================
 
-Oh My Zsh plugin for BOSH autocompletion
+Oh My Zsh plugin for BOSH autocompletion. Currently only completes the first parameter, but you know. Time and stuff. 
+
 
 Installation 
 ============
