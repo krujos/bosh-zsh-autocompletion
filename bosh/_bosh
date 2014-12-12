@@ -1,9 +1,46 @@
 #compdef bosh
-first_position=($(bosh help | egrep -v "Usage|BOSH" | egrep "^\w+" | awk '{ print $1 }' | tr ']' ' '))
 
+if [ -z "$bosh_help_output" ] ; then 
+	bosh_help_output=$(bosh --help | egrep -v "BOSH|Usage" | egrep "^\w+")
+fi 
+
+if [ -z "$first_position" ] ; then 
+	first_position=($(echo $bosh_help_output | awk '{ print $1 }' | tr ']' ' '))
+fi
+
+#Commands with a second position
+if [ -z "$second_position" ] ; then
+	second_position=("${(@f)$(echo $bosh_help_output | awk '{print $1 " " $2}' | egrep -v "\w+ \[|<")}")
+fi 
 
 complete() { 
-    _arguments "1: :($first_position)"
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments \
+		'1: :->fp' \
+		'2: :->second'
+
+	case $state in 
+		fp) 
+			_arguments "1: :($first_position)"
+			;;
+		second)
+			local -a matches
+			foreach w in $second_position ; do 
+				firstword=$(echo $w | awk '{ print $1 }')
+				if [[ $firstword == $words[2] ]] ; then 
+					second_word=$(echo $w | awk '{print $2}')
+					matches+=($second_word)
+				fi		
+			done
+			if [[ 0 < ${#matches} ]]; then 
+				compadd $matches
+			else 
+				_files
+			fi
+			;;
+	esac
 }
 
 complete "$@"
