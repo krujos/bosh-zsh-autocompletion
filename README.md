@@ -1,7 +1,9 @@
 bosh-zsh-autocompletion
 =======================
 
-Oh My Zsh (or probably any zsh but YMMV) plugin for BOSH autocompletion. Full disclosure, I've not tested this w/ the AWS plugin, only with BOSH light. 
+Oh My Zsh (or probably any zsh but YMMV) plugin for BOSH autocompletion. 
+
+See the know issues below for what doesn't work.
 
 Installation 
 ============
@@ -52,5 +54,13 @@ Type ```bosh <tab>``` and watch the magic happen
     ➜  ~  bosh delete s<tab>                                                           $
 	snapshot   snapshots  stemcell
 	
+#Known Issues
+AWS and Micro BOSH only match up to the third position. This means you can get as far as ```bosh aws bootstrap``` but you won't be prompted for ```bosh``` or ```micro```.
+
+```destination_directory``` shows up when it shouldn't because of the way the CLI for ```run_errand``` wraps the help for the command. Not sure if this is a bug in the CLI or if I should workaround it. 
+
+    run errand [<errand_name>] [--download-logs] [--logs-dir
+    destination_directory] [--keep-alive]``
+
 #Problems? 
 Open an issue or submit a PR please. 
