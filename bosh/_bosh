@@ -1,4 +1,4 @@
-#compdef bosh
+ #compdef bosh
 
 #Call BOSH once and cache it to keep it running faster.
 if [ -z "$bosh_help_output" ] ; then 
@@ -14,33 +14,64 @@ if [ -z "$second_position" ] ; then
 	second_position=("${(@f)$(echo $bosh_help_output | awk '{print $1 " " $2}' | egrep -v "\w+ \[|<")}")
 fi 
 
+#Commands with a third position
+if [ -z "$third_position" ] ; then
+	third_position=("${(@f)$(echo $bosh_help_output | awk '{print $1 " " $2 " " $3}' | egrep -v "\w+ \[|<")}")
+fi 
+
+find_second_matches() { 
+	local -a matches
+	foreach w in $second_position ; do 
+		firstword=$(echo $w | awk '{ print $1 }')
+		if [[ $firstword == $words[2] ]] ; then 
+			second_word=$(echo $w | awk '{print $2}')
+			matches+=($second_word)
+		fi		
+	done
+	if [[ 0 < ${#matches} ]]; then 
+		compadd $matches
+	else 
+		_files
+	fi
+}
+
+find_third_matches() { 
+	local -a matches
+	foreach w in $third_position ; do 
+		firstword=$(echo $w | awk '{ print $1 }')
+		secondword=$(echo $w | awk '{ print $2 }')
+		if [[ $firstword == $words[2] && $secondword == $words[3] ]] ; then 
+			third_word=$(echo $w | awk '{print $3}')
+			matches+=($third_word)
+		fi		
+	done
+	if [[ 0 < ${#matches} ]]; then 
+		compadd $matches
+	else 
+		_files
+	fi
+}
+
 complete() { 
     local curcontext="$curcontext" state line
     typeset -A opt_args
 
     _arguments \
 		'1: :->first' \
-		'2: :->second'
+		'2: :->second' \
+		'3: :->third'
 
 	case $state in 
 		first) 
 			_arguments "1: :($first_position)"
 			;;
 		second)
-			local -a matches
-			foreach w in $second_position ; do 
-				firstword=$(echo $w | awk '{ print $1 }')
-				if [[ $firstword == $words[2] ]] ; then 
-					second_word=$(echo $w | awk '{print $2}')
-					matches+=($second_word)
-				fi		
-			done
-			if [[ 0 < ${#matches} ]]; then 
-				compadd $matches
-			else 
-				_files
-			fi
+			find_second_matches
 			;;
+		third)
+			find_third_matches
+			;;
+		#Does zsh have a default?
 	esac
 }
 
