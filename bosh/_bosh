@@ -1,5 +1,6 @@
 #compdef bosh
 
+#Call BOSH once and cache it to keep it running faster.
 if [ -z "$bosh_help_output" ] ; then 
 	bosh_help_output=$(bosh --help | egrep -v "BOSH|Usage" | egrep "^\w+")
 fi 
@@ -18,11 +19,11 @@ complete() {
     typeset -A opt_args
 
     _arguments \
-		'1: :->fp' \
+		'1: :->first' \
 		'2: :->second'
 
 	case $state in 
-		fp) 
+		first) 
 			_arguments "1: :($first_position)"
 			;;
 		second)
