@@ -52,3 +52,5 @@ Type ```bosh <tab>``` and watch the magic happen
     ➜  ~  bosh delete s<tab>                                                           $
 	snapshot   snapshots  stemcell
 	
+#Problems? 
+Open an issue or submit a PR please. 
