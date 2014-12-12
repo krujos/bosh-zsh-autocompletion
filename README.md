@@ -1,8 +1,7 @@
 bosh-zsh-autocompletion
 =======================
 
-Oh My Zsh plugin for BOSH autocompletion. Currently only completes the first parameter, but you know. Time and stuff. 
-
+Oh My Zsh (or probably any zsh but YMMV) plugin for BOSH autocompletion.
 
 Installation 
 ============
@@ -21,7 +20,7 @@ Drop the ```bosh``` directory into your ```$ZSH/custom/plugins/``` (usually ```~
 Type ```bosh <tab>``` and watch the magic happen
 
     Last login: Thu Dec 11 16:42:19 on ttys002
-    ➜  ~  bosh ......                                                                  $
+    ➜  ~  bosh ......                                                                  
     add                    generate               ssh
     alias                  get                    start
     aliases                help                   status
@@ -43,3 +42,13 @@ Type ```bosh <tab>``` and watch the magic happen
     errands                set
     export                 snapshots
     
+    ➜  ~  bosh de<tab>                                                            
+    delete                 deployment             destination_directory
+    deploy                 deployments
+
+    ➜  ~  bosh delete <tab>                                                           
+    deployment  release     snapshot    snapshots   stemcell    user
+    
+    ➜  ~  bosh delete s<tab>                                                           $
+	snapshot   snapshots  stemcell
+	
