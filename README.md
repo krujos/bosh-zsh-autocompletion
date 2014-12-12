@@ -1,7 +1,7 @@
 bosh-zsh-autocompletion
 =======================
 
-Oh My Zsh (or probably any zsh but YMMV) plugin for BOSH autocompletion.
+Oh My Zsh (or probably any zsh but YMMV) plugin for BOSH autocompletion. Full disclosure, I've not tested this w/ the AWS plugin, only with BOSH light. 
 
 Installation 
 ============
