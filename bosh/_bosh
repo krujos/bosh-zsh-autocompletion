@@ -1,4 +1,4 @@
- #compdef bosh
+#compdef bosh
 
 #Call BOSH once and cache it to keep it running faster.
 if [ -z "$bosh_help_output" ] ; then 
@@ -19,32 +19,16 @@ if [ -z "$third_position" ] ; then
 	third_position=("${(@f)$(echo $bosh_help_output | awk '{print $1 " " $2 " " $3}' | egrep -v "\w+ \[|<")}")
 fi 
 
-find_second_matches() { 
+find_match() {
+	source=(${(P)1}) #The array of commands to match against
+	position=${2}    #the position we're completing for (which just happen to work as zsh is 1 indexed)
+	match_words=${3} #the words leading up to what we need to match, including spaces
 	local -a matches
-	foreach w in $second_position ; do 
-		firstword=$(echo $w | awk '{ print $1 }')
-		if [[ $firstword == $words[2] ]] ; then 
-			second_word=$(echo $w | awk '{print $2}')
-			matches+=($second_word)
-		fi		
-	done
-	if [[ 0 < ${#matches} ]]; then 
-		compadd $matches
-	else 
-		_files
-	fi
-}
-
-find_third_matches() { 
-	local -a matches
-	foreach w in $third_position ; do 
-		firstword=$(echo $w | awk '{ print $1 }')
-		secondword=$(echo $w | awk '{ print $2 }')
-		if [[ $firstword == $words[2] && $secondword == $words[3] ]] ; then 
-			third_word=$(echo $w | awk '{print $3}')
-			matches+=($third_word)
-		fi		
-	done
+	local -a stripped
+	stripped=(${(M)source:#$match_words*})
+ 	for match in $stripped ; do 
+ 		matches+=($(echo ${match#${match_words}} | tr -d ' '))
+ 	done
 	if [[ 0 < ${#matches} ]]; then 
 		compadd $matches
 	else 
@@ -66,10 +50,10 @@ complete() {
 			_arguments "1: :($first_position)"
 			;;
 		second)
-			find_second_matches
+			find_match second_position 2 $words[2]
 			;;
 		third)
-			find_third_matches
+			find_match third_position 3 "$words[2] $words[3]"
 			;;
 		#Does zsh have a default?
 	esac

@@ -48,14 +48,14 @@ Type ```bosh <tab>``` and watch the magic happen
     delete                 deployment             destination_directory
     deploy                 deployments
 
-    ➜  ~  bosh delete <tab>                                                           
+    ➜  ~  bosh delete <tab>
     deployment  release     snapshot    snapshots   stemcell    user
     
-    ➜  ~  bosh delete s<tab>                                                           $
+    ➜  ~  bosh delete s<tab>
 	snapshot   snapshots  stemcell
 	
 #Known Issues
-AWS and Micro BOSH only match up to the third position. This means you can get as far as ```bosh aws bootstrap``` but you won't be prompted for ```bosh``` or ```micro```.
+It's crazy slow with the AWS plugin installed. This is a BOSH thing, on my laptop it takes ~9s to output the help. Thankfully we cache it once per terminal session. If you were to upgrade the gem and the usage changed this will cause a problem. Restart your shell and you'll be good to go. 
 
 ```destination_directory``` shows up when it shouldn't because of the way the CLI for ```run_errand``` wraps the help for the command. Not sure if this is a bug in the CLI or if I should workaround it. 
 
@@ -63,4 +63,4 @@ AWS and Micro BOSH only match up to the third position. This means you can get a
     destination_directory] [--keep-alive]``
 
 #Problems? 
-Open an issue or submit a PR please. 
+Open an issue or submit a PR please!
